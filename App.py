@@ -215,13 +215,13 @@ class App:
     def playing_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background, (BUFFER // 2, BUFFER // 2))
-        # self.draw_grind() # Used for Development, you can uncomment
+        # self.draw_grind() Used for Development, you can uncomment
         # to see how the Walls.txt is translated into coins/walls
-        self.draw_coins()
         draw_text('HIGH SCORE: {}'.format(self.player.high_score),
                   self.screen, [485, 10], 15, WHITE, START_FONT)
         draw_text('CURRENT SCORE: {}'.format(self.player.current_score),
                   self.screen, [95, 10], 15, WHITE, START_FONT)
+        self.draw_coins()
         self.player.draw()
         for enemy in self.enemies:
             enemy.draw()
@@ -256,11 +256,13 @@ class App:
                 enemy.grid_pos = vec(enemy.starting_pos)
                 enemy.pix_pos = enemy.get_pix_pos()
                 enemy.direction *= 0
+            self.bgm.play(0)
 
     ####################################################
     #               GAME OVER FUNCTIONS                #
     # These functions control what happens in the app  #
-    # after the player has run out of lives            #
+    # after the player has run out of lives. involves  #
+    # Updating the score and restarting game functions #
     ####################################################
     def game_over_events(self):
         for event in pygame.event.get():

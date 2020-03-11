@@ -97,10 +97,14 @@ class Player:
     def time_to_move(self):
         # This Function checks to see if Pac Man is at the center of a grid,
         # if he is, he can move to another tile and accept user input, if not he must finish moving
-        if int(self.pix_pos.x+BUFFER//2) % self.app.cell_width == 0:
+        pos_x = self.pix_pos.x + BUFFER // 2
+        pos_y = self.pix_pos.y + BUFFER // 2
+        cw = self.app.cell_width
+        ch = self.app.cell_height
+        if int(pos_x) % cw == 0:
             if self.direction == vec(1, 0) or self.direction == vec(-1, 0) or self.direction == vec(0, 0):
                 return True
-        if int(self.pix_pos.y+BUFFER//2) % self.app.cell_height == 0:
+        if int(pos_y) % ch == 0:
             if self.direction == vec(0, 1) or self.direction == vec(0, -1) or self.direction == vec(0, 0):
                 return True
         return False
@@ -114,21 +118,30 @@ class Player:
 
     def on_coin(self):
         # checks if the player is on a grid with a coin ; returns true
+        pos_x = self.pix_pos.x + BUFFER // 2
+        pos_y = self.pix_pos.y + BUFFER // 2
+        cw = self.app.cell_width
+        ch = self.app.cell_height
         if self.grid_pos in self.app.coins:
-            if int(self.pix_pos.x + BUFFER // 2) % self.app.cell_width == 0:
+            if int(pos_x) % cw == 0:
                 if self.direction == vec(1, 0) or self.direction == vec(-1, 0):
                     return True
-            if int(self.pix_pos.y+BUFFER//2) % self.app.cell_height == 0:
+            if int(pos_y) % ch == 0:
                 if self.direction == vec(0, 1) or self.direction == vec(0, -1):
                     return True
         return False
 
     def on_portal(self):
+        pos_x = self.pix_pos.x + BUFFER // 2
+        pos_y = self.pix_pos.y + BUFFER // 2
+        cw = self.app.cell_width
+        ch = self.app.cell_height
+
         if self.grid_pos in self.app.portals:
-            if int(self.pix_pos.x + BUFFER // 2) % self.app.cell_width == 0:
+            if int(pos_x) % cw == 0:
                 if self.direction == vec(1, 0) or self.direction == vec(-1, 0):
                     return True
-            if int(self.pix_pos.y + BUFFER // 2) % self.app.cell_height == 0:
+            if int(pos_y) % ch == 0:
                 if self.direction == vec(0, 1) or self.direction == vec(0, -1):
                     return True
         return False
@@ -156,11 +169,16 @@ class Player:
         self.app.power_pills.remove(self.grid_pos)
 
     def on_power_pill(self):
+        pos_x = self.pix_pos.x + BUFFER // 2
+        pos_y = self.pix_pos.y + BUFFER // 2
+        cw = self.app.cell_width
+        ch = self.app.cell_height
+
         if self.grid_pos in self.app.power_pills:
-            if int(self.pix_pos.x + BUFFER // 2) % self.app.cell_width == 0:
+            if int(pos_x) % cw == 0:
                 if self.direction == vec(1, 0) or self.direction == vec(-1, 0):
                     return True
-            if int(self.pix_pos.y + BUFFER // 2) % self.app.cell_height == 0:
+            if int(pos_y) % ch == 0:
                 if self.direction == vec(0, 1) or self.direction == vec(0, -1):
                     return True
         return False
